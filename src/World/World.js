@@ -22,7 +22,7 @@ class World {
       this.render()
     })
 
-    const cube = createCube()
+    const cube = createCube(() => this.render())
     // cube.onTextureLoaded = () => {
     //   this.render()
     // }

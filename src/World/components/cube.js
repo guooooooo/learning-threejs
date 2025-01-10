@@ -6,14 +6,14 @@ import {
   TextureLoader,
 } from 'three'
 
-const createMaterial = () => {
+const createMaterial = (renderCb) => {
   const textureLoader = new TextureLoader()
   const texture = textureLoader.load(
     '/assets/textures/uv-test-bw.png',
     // onLoad callback
     function ( texture ) {
       console.log( 'texture loaded' )
-      
+      renderCb()
     },
 
     // onProgress callback currently not supported
@@ -30,11 +30,11 @@ const createMaterial = () => {
   return material
 }
 
-const createCube = () => {
+const createCube = (renderCb) => {
 
   const geometry = new BoxGeometry(2, 2, 2)
 
-  const material = createMaterial()
+  const material = createMaterial(renderCb)
 
   const cube = new Mesh(geometry, material)
 

@@ -1,4 +1,4 @@
-import { Mesh, BoxGeometry, MeshStandardMaterial } from 'three'
+import { Mesh, BoxGeometry, MeshStandardMaterial, MathUtils } from 'three'
 
 const createCube = () => {
 
@@ -11,6 +11,14 @@ const createCube = () => {
   const cube = new Mesh(geometry, material)
 
   cube.rotation.set(-0.5, -0.1, -0.8)
+
+  const radiansPerSecond = MathUtils.degToRad(30)
+
+  cube.tick = (delta) => {
+    cube.rotation.x += radiansPerSecond * delta
+    cube.rotation.y += radiansPerSecond * delta
+    cube.rotation.z += radiansPerSecond * delta
+  }
 
   return cube
 }

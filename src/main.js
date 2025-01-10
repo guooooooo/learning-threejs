@@ -5,10 +5,10 @@ function main() {
   const world = new World(container)
 
   // produce a single frame (render on demand)
-  // world.render()
+  world.render()
 
   // start the loop (produce a stream of frames)
-  world.start()
+  // world.start()
 }
 
 main()

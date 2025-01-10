@@ -8,7 +8,22 @@ import {
 
 const createMaterial = () => {
   const textureLoader = new TextureLoader()
-  const texture = textureLoader.load('/assets/textures/uv-test-bw.png')
+  const texture = textureLoader.load(
+    '/assets/textures/uv-test-bw.png',
+    // onLoad callback
+    function ( texture ) {
+      console.log( 'texture loaded' )
+      
+    },
+
+    // onProgress callback currently not supported
+    undefined,
+
+    // onError callback
+    function ( err ) {
+      console.error( 'An error happened.' );
+    }
+  )
   const material = new MeshStandardMaterial({
     map: texture,
   })

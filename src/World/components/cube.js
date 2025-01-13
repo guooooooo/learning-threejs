@@ -9,7 +9,7 @@ import {
 const createMaterial = (renderCb) => {
   const textureLoader = new TextureLoader()
   const texture = textureLoader.load(
-    '/assets/textures/uv-test-bw.png',
+    '/assets/textures/uv-test-col.png',
     // onLoad callback
     function ( texture ) {
       console.log( 'texture loaded' )

@@ -8,7 +8,7 @@ const createCamera = () => {
     100, // far clipping plane
   )
 
-  camera.position.set(0, 0, 10)
+  camera.position.set(-5, 5, 7)
 
   return camera
 }

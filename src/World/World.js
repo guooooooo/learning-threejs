@@ -1,7 +1,11 @@
 import { createCamera } from './components/camera.js'
-import { createMeshGroup } from './components/meshGroup.js'
+import {
+  createAxesHelper,
+  createGridHelper,
+} from './components/helpers.js'
 import { createLights } from './components/lights.js'
 import { createScene } from './components/scene.js'
+import { Train } from './components/Train/Train.js'
 
 import { createRenderer } from './systems/renderer.js'
 import { createControls } from './systems/controls.js'
@@ -22,23 +26,26 @@ class World {
       this.render()
     })
 
-    const meshGroup = createMeshGroup()
     // cube.onTextureLoaded = () => {
     //   this.render()
     // }
 
     const { ambientLight, mainLight } = createLights()
+    const train = new Train()
+    const secondTrain = train.clone()
+    secondTrain.position.x = 6
 
-    this.loop.updatables.push(controls, meshGroup)
+    this.loop.updatables.push(controls, train, secondTrain)
 
     // this.loop.updatables.push(cube)
 
-    this.scene.add(ambientLight, mainLight, meshGroup)
+    this.scene.add(ambientLight, mainLight, train, secondTrain)
 
     const resizer = new Resizer(container, this.camera, this.renderer)
     // resizer.onResize = () => {
     //   this.render()
     // }
+    this.scene.add(createAxesHelper(), createGridHelper())
   }
 
   render() {

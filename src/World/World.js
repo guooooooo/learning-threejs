@@ -6,6 +6,7 @@ import {
 import { createLights } from './components/lights.js'
 import { createScene } from './components/scene.js'
 import { Train } from './components/Train/Train.js'
+import { loadBirds } from './components/birds/birds.js'
 
 import { createRenderer } from './systems/renderer.js'
 import { createControls } from './systems/controls.js'
@@ -20,9 +21,9 @@ class World {
     this.loop = new Loop(this.camera, this.scene, this.renderer)
     container.append(this.renderer.domElement)
 
-    const controls = createControls(this.camera, this.renderer.domElement)
+    this.controls = createControls(this.camera, this.renderer.domElement)
 
-    controls.addEventListener('change', () => {
+    this.controls.addEventListener('change', () => {
       this.render()
     })
 
@@ -31,21 +32,31 @@ class World {
     // }
 
     const { ambientLight, mainLight } = createLights()
-    const train = new Train()
-    const secondTrain = train.clone()
-    secondTrain.position.x = 6
+    // const train = new Train()
+    // const secondTrain = train.clone()
+    // secondTrain.position.x = 6
 
-    this.loop.updatables.push(controls, train, secondTrain)
+    this.loop.updatables.push(this.controls)
 
     // this.loop.updatables.push(cube)
 
-    this.scene.add(ambientLight, mainLight, train, secondTrain)
+    this.scene.add(ambientLight, mainLight)
 
     const resizer = new Resizer(container, this.camera, this.renderer)
     // resizer.onResize = () => {
     //   this.render()
     // }
     this.scene.add(createAxesHelper(), createGridHelper())
+  }
+
+  async init() {
+    const { parrot, flamingo, stork } = await loadBirds()
+
+    this.controls.target.copy(parrot.position)
+
+    this.loop.updatables.push(parrot, flamingo, stork)
+
+    this.scene.add(parrot, flamingo, stork)
   }
 
   render() {

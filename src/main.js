@@ -1,8 +1,10 @@
 import { World } from './World/World.js'
 
-function main() {
+async function main() {
   const container = document.querySelector('#scene-container')
   const world = new World(container)
+
+  await world.init()
 
   // produce a single frame (render on demand)
   // world.render()
@@ -11,4 +13,6 @@ function main() {
   world.start()
 }
 
-main()
+main().catch(error => {
+  console.error('An error occurred:', error)
+})
